@@ -3,6 +3,7 @@ from Character import Hero
 from Character import Opponent
 from Character import Dobby
 from Potions import Potions
+from Win import Win
 from random import randint
 
 hero = Hero()
@@ -12,6 +13,8 @@ potions = Potions()
 print "Welcome to Hogwarts Dueling Club!"
 print "What is your name?"
 hero.name = raw_input("> ")
+print "What if your Hogwarts House?"
+house = raw_input("> ")
 print "How many duels will you complete today?"
 num_of_duels = int(raw_input("> "))
 
@@ -23,8 +26,6 @@ opponents = []
 for i in range(0, num_of_duels):
 	rand_num = randint(0, len(avail_opponents) - 1)
 	opponents.append(avail_opponents[rand_num])
-	# if (avail_opponents[rand_num] == Opponent()):
-	# 	opponents.append(Opponent())
 
 for opponent in opponents: 
 	opponent.health = opponent.max_health
@@ -32,8 +33,8 @@ for opponent in opponents:
 		print "\n*****NEW DUEL!*****"
 	while opponent.alive() and hero.alive():
 		rand_bool = randint(0,1)
-		print "\nYou have %s health and %s power." % (hero.health, hero.power)
-		print "Your opponent has %s health and %s power.\n" % (opponent.health, opponent.power)
+		print "\nYou have %s health and level %s magical knowledge." % (hero.health, hero.magical_knowledge)
+		print "Your opponent has %s health and level %s magical knowledge.\n" % (opponent.health, opponent.magical_knowledge)
 		print "%s, what is your next action?" % hero.name
 		print "1. Expelliarmus"
 		print "2. Stupify"
@@ -41,7 +42,7 @@ for opponent in opponents:
 		print "4. Slug-Vomiting Charm"
 		print "5. Crucio!"
 		print "6. Episkey!"
-		print "7. Raid Potions Storeroom"
+		print "7. Raid Potions room"
 		print "8. Do nothing"
 		print "X. Flee"
 		user_input = raw_input("> ")
@@ -50,6 +51,7 @@ for opponent in opponents:
 			if rand_bool == 1:
 				print "You have disarmed your opponent!"
 				opponent.health = 0
+				Win()
 			else:
 				print "You missed!"
 		elif user_input == "2": #Stupify
@@ -57,26 +59,25 @@ for opponent in opponents:
 			if rand_bool == 1:
 				print "You have stupified your opponent!"
 				opponent.health = 0
+				Win()
 			else:
 				print "You missed!"
 		elif user_input == "3": #Jelly-Legs Jinx
 			hero.attack(opponent)
 			if rand_bool == 1:
 				print "You have jinxed your opponent!"
-				opponent.receive_damage(hero.power)
-				# opponent.health -= 2
+				opponent.receive_damage(hero.magical_knowledge)
 			else:
 				print "You missed!"
 		elif user_input == "4": #Slug-Vomiting Charm
 			hero.attack(opponent)
 			if rand_bool == 1:
 				print "Your opponent is vomiting slugs!"
-				opponent.receive_damage(hero.power)
-				# opponent.health -= 2
+				opponent.receive_damage(hero.magical_knowledge)
 			else:
 				print "You missed!"
 		elif user_input == "5": #Crucio
-			print "You are expelled!"
+			print "You are expelled! 50 points from %s!" % house
 			hero.health = 0
 			break
 		elif user_input == "6": #Episkey
@@ -86,7 +87,7 @@ for opponent in opponents:
 		elif user_input == "8": #Do nothing
 			pass
 		elif user_input == "X" or user_input == "x":
-			print "10 points from Gryffindor!"
+			print "10 points from %s!" % house
 			hero.health = 0
 			break
 		else:
@@ -95,8 +96,8 @@ for opponent in opponents:
 		if user_input != "7":
 			if opponent.health > 0:
 				if rand_bool == 1:
-					hero.health -= opponent.power
-					print "The %s hits you for %d damage." % (opponent.name, opponent.power)
+					hero.health -= opponent.magical_knowledge
+					print "The %s hits you for %d damage." % (opponent.name, opponent.magical_knowledge)
 				else:
 					print "The %s missed!" % opponent.name
 				if hero.health <= 0:

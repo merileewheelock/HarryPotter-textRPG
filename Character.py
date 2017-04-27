@@ -4,7 +4,7 @@ class Character(object):
     def __init__(self):
         self.name = hero
         self.health = 10
-        self.power = 4
+        self.magical_knowledge = 4
 
     def alive(self):
         return self.health > 0
@@ -20,14 +20,14 @@ class Character(object):
             print "%s is defeated." % self.name
 
     def print_status(self):
-        print "%s has %d health and %d power." % (self.name, self.health, self.power)
+        print "%s has %d health and %d magical knowledge." % (self.name, self.health, self.magical_knowledge)
 
 class Hero(Character):
     def __init__(self):
         # super(Hero, self).__init__()
         self.name = "hero"
         self.health = 10
-        self.power = 4
+        self.magical_knowledge = 4
         self.location = 15
 
     def restore(self):
@@ -48,5 +48,5 @@ class Opponent(Character):
         # super(Opponent, self).__init__()
         self.name = "Opposing Student"
         self.health = randint(8,10)
-        self.power = randint(3,6)
+        self.magical_knowledge = randint(3,6)
         self.max_health = 10
