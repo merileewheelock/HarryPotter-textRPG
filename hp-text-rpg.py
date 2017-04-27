@@ -1,7 +1,4 @@
-from Character import Character
-from Character import Hero
-from Character import Opponent
-from Character import Dobby
+from Character import *
 from Potions import Potions
 from Win import Win
 from random import randint
@@ -13,7 +10,7 @@ potions = Potions()
 print "Welcome to Hogwarts Dueling Club!"
 print "What is your name?"
 hero.name = raw_input("> ")
-print "What if your Hogwarts House?"
+print "What is your Hogwarts House?"
 house = raw_input("> ")
 print "How many duels will you complete today?"
 num_of_duels = int(raw_input("> "))
